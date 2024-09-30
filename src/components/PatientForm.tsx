@@ -1,5 +1,9 @@
+import { useForm } from 'react-hook-form'
+
 export default function PatientForm() {
-  
+  //funcion register-te permite registrar 
+    const { register } = useForm()
+
     return (
       <div className="md:w-1/2 lg:w-2/5 mx-5">
           <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
@@ -22,6 +26,11 @@ export default function PatientForm() {
                         className="w-full p-3  border border-gray-100"  
                         type="text" 
                         placeholder="Nombre del Paciente" 
+                        //quiero que el formulario lo procese react hook form, para eso hacemos lo siguiente-lo que hace este codigo es decir que el campo es obligatorio
+                        {...register('name',{
+                            required:'El Nombre del paciente es obligatorio'
+                        })}
+
                     />
                 </div>
   
