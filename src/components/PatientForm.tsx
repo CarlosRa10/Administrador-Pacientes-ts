@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form'
+import Error from './Error'
 
 export default function PatientForm() {
   //funcion register-te permite registrar 
     const { register, handleSubmit, formState:{errors} } = useForm()
-    //console.log(formState)
+    //console.log(errors)
 
     const registerPatient=()=>{
         console.log('Nuevo Paciente')
@@ -34,11 +35,21 @@ export default function PatientForm() {
                         placeholder="Nombre del Paciente" 
                         //quiero que el formulario lo procese react hook form, para eso hacemos lo siguiente-lo que hace este codigo es decir que el campo es obligatorio
                         {...register('name',{
-                            required:'El Nombre del paciente es obligatorio'
+                            required:'El Nombre del paciente es obligatorio',
+                            maxLength:{
+                                value:50,
+                                message:'Máximo 50 Caracteres'
+                            }
                         })}
 
                     />
-                    {errors.name?.message}
+                    {errors.name &&(
+                        <Error>{errors.name?.message?.toString()}</Error>
+                    )}
+                    {errors.maxLength &&(
+                        <Error>{errors.name?.message?.toString()}</Error>
+                    )}
+                    
                 </div>
   
                 <div className="mb-5">
