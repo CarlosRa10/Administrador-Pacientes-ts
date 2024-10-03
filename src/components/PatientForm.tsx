@@ -1,13 +1,14 @@
 import { useForm } from 'react-hook-form'
 import Error from './Error'
+import type { DraftPatient } from '../types'
 
 export default function PatientForm() {
   //funcion register-te permite registrar 
-    const { register, handleSubmit, formState:{errors} } = useForm()
+    const { register, handleSubmit, formState:{errors} } = useForm<DraftPatient>()
     //console.log(errors)
 
-    const registerPatient=()=>{
-        console.log('Nuevo Paciente')
+    const registerPatient=(data:DraftPatient)=>{
+        console.log(data)
     }
 
     return (
@@ -47,9 +48,9 @@ export default function PatientForm() {
                     {errors.name &&(
                         <Error>{errors.name?.message?.toString()}</Error>
                     )}
-                    {errors.maxLength &&(
+                    {/* {errors.maxLength &&(
                         <Error>{errors.name?.message?.toString()}</Error>//de hecho este codigo no hace falta, el de arriba( {errors.name &&) ya engloba todos los errores
-                    )}
+                    )} */}
                     
                 </div>
   
