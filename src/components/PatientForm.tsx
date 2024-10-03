@@ -2,6 +2,13 @@ import { useForm } from 'react-hook-form'
 import Error from './Error'
 import type { DraftPatient } from '../types'
 
+
+//Zustand es un estado global pero de forma simple - es una dependencia -  
+//Es una dependencia para manejar un estado global en tus aplicaciones de React - puede ser utilizado sin react
+//su api es sencilla y se pude utilizar con js y ts
+//Es una de las principales alternativas a Redux toolkit
+
+
 export default function PatientForm() {
   //funcion register-te permite registrar 
     const { register, handleSubmit, formState:{errors} } = useForm<DraftPatient>()
