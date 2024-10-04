@@ -9,6 +9,10 @@ import type { DraftPatient } from '../types'
 //Es una de las principales alternativas a Redux toolkit
 
 
+
+
+
+
 export default function PatientForm() {
   //funcion register-te permite registrar 
     const { register, handleSubmit, formState:{errors} } = useForm<DraftPatient>()
