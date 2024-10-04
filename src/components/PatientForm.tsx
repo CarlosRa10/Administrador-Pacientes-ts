@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import Error from './Error'
 import type { DraftPatient } from '../types'
+import { usePatientStore } from '../store.' 
 
 
 //Zustand es un estado global pero de forma simple - es una dependencia -  
@@ -14,12 +15,17 @@ import type { DraftPatient } from '../types'
 
 
 export default function PatientForm() {
+    //opcion 1 para comunicar
+    //const {addPatient}= usePatientStore()
+    //opcion 2 para comunicar
+    const addPatient= usePatientStore(state=>state.addPatient)
   //funcion register-te permite registrar 
     const { register, handleSubmit, formState:{errors} } = useForm<DraftPatient>()
     //console.log(errors)
 
     const registerPatient=(data:DraftPatient)=>{
-        console.log(data)
+        //console.log(data)
+        addPatient(data)//comunicando los datos del formulario al store
     }
 
     return (
