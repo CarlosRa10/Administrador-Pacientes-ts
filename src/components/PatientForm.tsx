@@ -18,14 +18,16 @@ export default function PatientForm() {
     //opcion 1 para comunicar
     //const {addPatient}= usePatientStore()
     //opcion 2 para comunicar
-    const addPatient= usePatientStore(state=>state.addPatient)//acciones
-  //funcion register-te permite registrar 
-    const { register, handleSubmit, formState:{errors} } = useForm<DraftPatient>()
+    const addPatient= usePatientStore(state=>state.addPatient)//llamada a las acciones
+    //const activeId= usePatientStore(state=>state.activeId)
+    //funcion register-te permite registrar 
+    const { register, handleSubmit, formState:{errors},reset } = useForm<DraftPatient>()
     //console.log(errors)
 
     const registerPatient=(data:DraftPatient)=>{
         //console.log(data)
         addPatient(data)//comunicando los datos del formulario al store
+        reset()
     }
 
     return (
