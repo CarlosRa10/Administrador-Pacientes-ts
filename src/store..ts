@@ -13,6 +13,7 @@ const createPatient = (patient:DraftPatient):Patient=>{//Esta función toma un o
     return {...patient,id:uuidv4()}
 }
 
+//Esto es nuestro inicio o estado 
 export const usePatientStore = create<PatientState>((set)=>({//generic<>-- Creamos un store de Zustand con el tipo PatientState.--La función set se utiliza para actualizar el estado del store.
     patients:[],
     addPatient:(data)=>{
