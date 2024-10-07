@@ -1,7 +1,7 @@
 //store es basicamente lo mismo a un reducer-- en el store colocas tu state y tambien las funciones(acciones) que las modifican 
 //Para comunicar el formulario con el store es con las acciones 
 import {create} from 'zustand'
-import {devtools} from 'zustand/middleware'
+import {createJSONStorage, devtools,persist} from 'zustand/middleware'
 import {v4 as uuidv4} from 'uuid'
 import { DraftPatient, Patient } from './types'//Importamos las interfaces DraftPatient y Patient definidas en el archivo types.
 
@@ -21,7 +21,8 @@ const createPatient = (patient:DraftPatient):Patient=>{//Esta función toma un o
 
 //Esto es nuestro inicio o estado 
 export const usePatientStore = create<PatientState>()(
-    devtools((set)=>({//generic<>-- Creamos un store de Zustand con el tipo PatientState.--La función set se utiliza para actualizar el estado del store.
+    devtools(
+    persist((set)=>({//generic<>-- Creamos un store de Zustand con el tipo PatientState.--La función set se utiliza para actualizar el estado del store.
         patients:[],
         activeId:'',
         addPatient:(data)=>{
@@ -51,5 +52,12 @@ export const usePatientStore = create<PatientState>()(
                     activeId: ''
             }))
         }
+    }),{
+        name:'patient-storage',
+       
+
     })
 ))
+//localstorage(localStorage) y sectionstorage (sessionStorage)
+
+//localstorage es por default asi que no se requiere esto almenos que sea sessionstorage: storage:createJSONStorage(()=> localStorage)

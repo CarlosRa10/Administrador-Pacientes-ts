@@ -1,3 +1,5 @@
+//las dependencias se importan primero
+import {toast} from 'react-toastify'
 import { Patient } from "../types"
 import PatientDetailsItem from "./PatientDetailsItem"
 import { usePatientStore } from "../store."
@@ -11,6 +13,10 @@ export default function PatientDetails({patient}:PatientDetailsProps) {
   const getPatientById = usePatientStore((state)=>state.getPatientById)
   //esta otra forma tambien puedes conectar el store
   //const {deletePatient,getPatientById} = usePatientStore()
+  const handleClick = ()=>{//tuvimos que hacer una funcion para cuando se cumpla el delete tambien se active el toast
+    deletePatient(patient.id)
+    toast.error('Paciente Eliminado')
+  }
   
   return (
     <div className=" mx-5 my-10 px-5 py-10 bg-white shadow-md rounded-xl">
@@ -28,7 +34,7 @@ export default function PatientDetails({patient}:PatientDetailsProps) {
               Editar
             </button>
             <button type="button" className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg"
-            onClick={()=>deletePatient(patient.id)}
+            onClick={handleClick}
             >
               Eliminar
             </button>

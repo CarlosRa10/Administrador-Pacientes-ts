@@ -1,8 +1,9 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import {toast} from 'react-toastify'
 import Error from './Error'
 import type { DraftPatient } from '../types'
 import { usePatientStore } from '../store.' 
-import { useEffect } from 'react'
 
 
 //Zustand es un estado global pero de forma simple - es una dependencia -  
@@ -43,9 +44,12 @@ export default function PatientForm() {
         //console.log(data)
         if(activeId){
             updatePatient(data)
+            toast('Paciente Actualizado Correctamente',{
+                type:'success'
+            })
         }else{
             addPatient(data)//comunicando los datos del formulario al store
-            
+            toast.success('Paciente Registrado Correctamente')
         }
         reset()
     }
