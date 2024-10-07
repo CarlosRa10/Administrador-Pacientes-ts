@@ -5,13 +5,14 @@ import {devtools} from 'zustand/middleware'
 import {v4 as uuidv4} from 'uuid'
 import { DraftPatient, Patient } from './types'//Importamos las interfaces DraftPatient y Patient definidas en el archivo types.
 
-//para que todo este sincronizado lo tengo que poner en PatientState -- states y funciones
+//para que todo este sincronizado lo tengo que poner en PatientState -- states y funcioneso acciones
 type PatientState={
     patients: Patient[]//los pacientes, son de tipo paciente y tiene que ser arreglo porque son multiples
     activeId: Patient['id']
     addPatient:(data:DraftPatient)=>void//commo estamos en otro archivo hay que especifiacrle que tipo de dato espera porque sino pierde la referencia
     deletePatient:(id:Patient['id'])=>void
     getPatientById:(id:Patient['id'])=>void
+    updatePatient:(data:DraftPatient)=>void
 }
 
 const createPatient = (patient:DraftPatient):Patient=>{//Esta función toma un objeto DraftPatient (un paciente sin ID) y crea un nuevo objeto Patient agregándole un ID único generado por uuidv4.
@@ -41,6 +42,13 @@ export const usePatientStore = create<PatientState>()(
             //console.log(id)
             set(()=>({//no necesitamos un valor previo 'state'-- porque vamos a escribir
                 activeId: id
+            }))
+        },
+        updatePatient:(data)=>{
+            set((state)=>({//hay que recuperar el id hay dos opciones patient.id o state.activeId ...data -- data seria lo restante de la informacion
+                patients: state.patients.map(patient => patient.id === state.activeId ? {id: state.activeId, ...
+                    data} : patient),
+                    activeId: ''
             }))
         }
     })
