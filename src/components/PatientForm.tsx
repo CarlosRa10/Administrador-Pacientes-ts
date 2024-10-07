@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import Error from './Error'
 import type { DraftPatient } from '../types'
 import { usePatientStore } from '../store.' 
+import { useEffect } from 'react'
 
 
 //Zustand es un estado global pero de forma simple - es una dependencia -  
@@ -19,16 +20,31 @@ export default function PatientForm() {
     //const {addPatient}= usePatientStore()
     //opcion 2 para comunicar
     const addPatient= usePatientStore(state=>state.addPatient)//llamada a las acciones
-    //const activeId= usePatientStore(state=>state.activeId)
+    const activeId= usePatientStore(state=>state.activeId)
+    const patients= usePatientStore(state=>state.patients)
     //funcion register-te permite registrar 
-    const { register, handleSubmit, formState:{errors},reset } = useForm<DraftPatient>()
+    const { register, handleSubmit,setValue, formState:{errors},reset } = useForm<DraftPatient>()
     //console.log(errors)
+    
+    useEffect(()=>{
+        if(activeId){
+            const activePatient =patients.filter(patient=> patient.id===activeId)[0]
+            //console.log(activePatient)
+            setValue('name',activePatient.name)
+            setValue('caretaker',activePatient.caretaker)
+            setValue('email',activePatient.email)
+            setValue('date',activePatient.date)
+            setValue('symptoms',activePatient.symptoms)
+        }
+    },[activeId])
 
     const registerPatient=(data:DraftPatient)=>{
         //console.log(data)
         addPatient(data)//comunicando los datos del formulario al store
         reset()
     }
+
+    
 
     return (
       <div className="md:w-1/2 lg:w-2/5 mx-5">
